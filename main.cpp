@@ -23,4 +23,5 @@ int main(int argc, char* argv[]) {
         } while(cin.peek() != '\n');
     }
 
+
 }
