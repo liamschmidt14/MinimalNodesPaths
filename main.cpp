@@ -13,17 +13,14 @@ int main(int argc, char* argv[]) {
 
     for(int i = 1; i <= numOfVertices; ++i) {
         vertices.push_back(i);
-        cout << "Enter vertices adjacent to vertex " << i << " separated by a space. Use 0 to finish.";
+
+        cout << "Enter vertices adjacent to vertex " << i << " separated by a space.";
+
         int adjacent;
-        while(cin >> adjacent && adjacent != 0)
+        do {
+            cin >> adjacent;
             adjList[i - 1].push_back(adjacent);
+        } while(cin.peek() != '\n');
     }
-    int i = 0;
-    for(vector<int> v : adjList) {
-        cout << ++i << ": ";
-        for(int i : v) {
-            cout << i << ' ';
-        }
-        cout << endl;
-    }
+
 }
