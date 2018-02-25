@@ -13,5 +13,11 @@ struct Vertex {
 
     vector<int> pathFromStart;
     vector<int> pathFromEnd;
+
+    int parents[2];
 };
+
+void bfs(int, int, vector<Vertex *>&, vector< vector<int> >&);
+void buildAdjacencyList(int, vector<Vertex *>&, vector< vector<int> >&);
+void addNeighborsToQueue(int, queue<int> &, vector<int> &);
 #endif //MINIMALNODESPATHS_MAIN_H
