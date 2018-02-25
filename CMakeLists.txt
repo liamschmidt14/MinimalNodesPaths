@@ -3,4 +3,4 @@ project(MinimalNodesPaths)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(MinimalNodesPaths main.cpp main.h)
+add_executable(MinimalNodesPaths src/main.cpp src/main.h)
