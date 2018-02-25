@@ -2,7 +2,7 @@
 #include "main.h"
 
 int main(int argc, char* argv[]) {
-    vector<int> vertices;
+    vector<Vertex*> vertices;
     vector< vector<int> > adjList;
     int numOfVertices;
 
@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
     adjList.resize(numOfVertices);
 
     for(int i = 1; i <= numOfVertices; ++i) {
-        vertices.push_back(i);
+        vertices.push_back(new Vertex);
 
         cout << "Enter vertices adjacent to vertex " << i << " separated by a space.";
 
@@ -22,6 +22,5 @@ int main(int argc, char* argv[]) {
             adjList[i - 1].push_back(adjacent);
         } while(cin.peek() != '\n');
     }
-
 
 }
