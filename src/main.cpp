@@ -177,7 +177,7 @@ void buildAdjacencyList(int numOfVertices, vector<Vertex *>& vertices, vector< v
         //Store vertex information in a struct for each vertex
         vertices.push_back(new Vertex);
 
-        cout << "Enter vertices adjacent to vertex " << i << " separated by a space.";
+        cout << "Enter vertices adjacent to vertex " << i << " separated by a space. ";
 
         //do-while builds each vertex's adjacency list
         int adjacent;
