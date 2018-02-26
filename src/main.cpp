@@ -2,6 +2,7 @@
 #include <queue>
 #include <stack>
 #include <set>
+#include <algorithm>
 #include "main.h"
 
 int main(int argc, char* argv[]) {
@@ -125,6 +126,8 @@ void bfs(int startVertex, int targetVertex, vector<Vertex *>& vertices, const ve
             vector<int> currentNeighbors;
             getAndMarkUnvisitedNeighbors(currentVertex, adjList, vertices, i, currentNeighbors);
 
+            if(i == 1)
+                reverse(currentNeighbors.begin(), currentNeighbors.end());
             //If there are unvisited neighbors, set their "parent" vertex (to be used when reconstructing the shortest
             //path) to the current vertex, then mark these neighbors as visited.
             bool hasUnvisitedNeighbors = !currentNeighbors.empty();
