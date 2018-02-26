@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <stack>
+#include <unordered_set>
 #include "main.h"
 
 int main(int argc, char* argv[]) {
@@ -27,6 +28,81 @@ int main(int argc, char* argv[]) {
     //The resulting shortest paths from source and target to each vertex will be concatenated to produce the shortest path
     //from source to target containing that vertex.
     bfs(startingVertex, targetVertex, vertices, adjList);
+
+    unordered_set<string> allPaths = constructAllPaths(vertices);
+    cout << endl << "All paths from vertex " << startingVertex << " to vertex " << targetVertex << " with a minimal number of nodes per path:" << endl;
+    for(string path : allPaths)
+        cout << path << endl;
+
+}
+
+unordered_set<string> constructAllPaths(vector<Vertex *> vertices) {
+    //Using an unordered set to prevent listing duplicate paths.
+    unordered_set<string> allPaths;
+
+    //Finds the shortest path (based on the BFSes done earlier) from each node in the graph to the source vertex and to the target.
+    for (int i = 0; i < vertices.size(); ++i) {
+        string pathFromSource = getPathFromSource(vertices, i);
+        string pathFromTarget = getPathFromTarget(vertices, i);
+        //Concatenates the two shortest paths calculated with the vertex for which paths are being built.
+        string completePath = pathFromSource + to_string(i + 1) + pathFromTarget;
+        //Adds the path to the unordered set.
+        allPaths.insert(completePath);
+    }
+    
+    return allPaths;
+}
+
+string getPathFromSource(const vector<Vertex *>& vertices, int vertexToGetPathFor) {
+    //Using a stack because this path string will need to be built in a LIFO order.
+    stack<int> pathBuilder;
+
+    Vertex *current = vertices[vertexToGetPathFor];
+    int parentVertex = current->parents[0];
+
+    //Adds vertices to the stack until the source vertex is reached.
+    while(parentVertex != -1) {
+        pathBuilder.push(parentVertex);
+        current = vertices[parentVertex - 1];
+        parentVertex = current->parents[0];
+    }
+
+    string path = "";
+
+    //Builds the path from the stack.
+    while(!pathBuilder.empty()) {
+        int nextVertex = pathBuilder.top();
+        pathBuilder.pop();
+
+        path += to_string(nextVertex) + " ";
+    }
+
+    return path;
+}
+
+string getPathFromTarget(const vector<Vertex *>& vertices, int vertexToGetPathFor) {
+    //This method uses a queue because the path string needs to be constructed in a FIFO fashion.
+    queue<int> pathBuilder;
+
+    Vertex *current = vertices[vertexToGetPathFor];
+    int parentVertex = current->parents[1];
+
+    while(parentVertex != -1) {
+        pathBuilder.push(parentVertex);
+        current = vertices[parentVertex - 1];
+        parentVertex = current->parents[1];
+    }
+
+    string path = "";
+
+    while(!pathBuilder.empty()) {
+        int nextVertex = pathBuilder.front();
+        pathBuilder.pop();
+
+        path += " " + to_string(nextVertex);
+    }
+
+    return path;
 }
 
 void bfs(int startVertex, int targetVertex, vector<Vertex *>& vertices, const vector< vector<int> >& adjList) {
@@ -55,7 +131,7 @@ void bfs(int startVertex, int targetVertex, vector<Vertex *>& vertices, const ve
             if(hasUnvisitedNeighbors) {
                 setParentOfNeighbors(vertices, i, currentVertex, currentNeighbors);
 
-                addNeighborsToQueue(currentVertex, nextVerticesToCheck, currentNeighbors);
+                addNeighborsToQueue(nextVerticesToCheck, currentNeighbors);
             }
             
         }
@@ -63,7 +139,7 @@ void bfs(int startVertex, int targetVertex, vector<Vertex *>& vertices, const ve
 
 }
 
-void addNeighborsToQueue(int vertex, queue<int> &queue, const vector<int>& neighbors) {
+void addNeighborsToQueue(queue<int> &queue, const vector<int>& neighbors) {
     //Simply adds unvisited neighbors to the queue.
     for(int i : neighbors)
         queue.push(i);
