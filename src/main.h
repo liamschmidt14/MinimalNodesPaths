@@ -12,7 +12,14 @@ struct Vertex {
     int parents[2] = {-1, -1};
 };
 
-unordered_set<string> constructAllPaths(vector<Vertex *>);
+struct CompareByLength {
+    bool operator()(const string& a, const string& b) {
+        if(a.length() == b.length()) return a < b;
+        return a.length() < b.length();
+    }
+};
+
+set<string, CompareByLength> constructAllPaths(vector<Vertex *>);
 string getPathFromSource(const vector<Vertex *>& vertices, int vertexToGetPathFor) ;
 string getPathFromTarget(const vector<Vertex *>& vertices, int vertexToGetPathFor) ;
 void bfs(int, int, vector<Vertex *>&, const vector< vector<int> >&);
