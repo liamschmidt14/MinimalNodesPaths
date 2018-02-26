@@ -44,6 +44,12 @@ set<string, CompareByLength> constructAllPaths(vector<Vertex *> vertices) {
     for (int i = 0; i < vertices.size(); ++i) {
         string pathFromSource = getPathFromSource(vertices, i);
         string pathFromTarget = getPathFromTarget(vertices, i);
+        //This does not produce correct answers in all cases!
+        if(pathFromSource.length() > 0 && pathFromTarget.length() > 0) {
+            if(pathIsNotSimple(pathFromSource, pathFromTarget))
+                continue;
+        }
+
         //Concatenates the two shortest paths calculated with the vertex for which paths are being built.
         string completePath = pathFromSource + to_string(i + 1) + pathFromTarget;
         //Adds the path to the unordered set.
@@ -170,6 +176,16 @@ void markStartVisited(vector<Vertex *>& vertices, int vertexToMark, int visitedS
     //Marks the starting vertex of the BFS visited.
     Vertex *startingVertex = vertices[vertexToMark - 1];
     startingVertex->visited[visitedSelector] = true;
+}
+
+bool pathIsNotSimple(const string &pathFromSource, const string &pathToTarget) {
+    unsigned int positionOfLastVertex = pathFromSource.find_last_of(' ', pathFromSource.length() - 2) + 1;
+    unsigned int lengthOfLastVertex = pathFromSource.length() - 1 - positionOfLastVertex;
+    string lastVertexFromSource = pathFromSource.substr(positionOfLastVertex, lengthOfLastVertex);
+    string firstVertexToTarget = pathToTarget.substr(1, pathToTarget.find(' ', 1) - 1);
+    if(lastVertexFromSource == firstVertexToTarget)
+        return true;
+    return false;
 }
 
 void buildAdjacencyList(int numOfVertices, vector<Vertex *>& vertices, vector< vector<int> >& adjList) {

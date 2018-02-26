@@ -19,6 +19,7 @@ struct CompareByLength {
     }
 };
 
+bool pathIsNotSimple(const string &pathFromSource, const string &pathToTarget);
 set<string, CompareByLength> constructAllPaths(vector<Vertex *>);
 string getPathFromSource(const vector<Vertex *>& vertices, int vertexToGetPathFor) ;
 string getPathFromTarget(const vector<Vertex *>& vertices, int vertexToGetPathFor) ;
