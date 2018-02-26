@@ -1,7 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <stack>
-#include <unordered_set>
+#include <set>
 #include "main.h"
 
 int main(int argc, char* argv[]) {
@@ -29,16 +29,16 @@ int main(int argc, char* argv[]) {
     //from source to target containing that vertex.
     bfs(startingVertex, targetVertex, vertices, adjList);
 
-    unordered_set<string> allPaths = constructAllPaths(vertices);
+    set<string, CompareByLength> allPaths = constructAllPaths(vertices);
     cout << endl << "All paths from vertex " << startingVertex << " to vertex " << targetVertex << " with a minimal number of nodes per path:" << endl;
     for(string path : allPaths)
         cout << path << endl;
 
 }
 
-unordered_set<string> constructAllPaths(vector<Vertex *> vertices) {
+set<string, CompareByLength> constructAllPaths(vector<Vertex *> vertices) {
     //Using an unordered set to prevent listing duplicate paths.
-    unordered_set<string> allPaths;
+    set<string, CompareByLength> allPaths;
 
     //Finds the shortest path (based on the BFSes done earlier) from each node in the graph to the source vertex and to the target.
     for (int i = 0; i < vertices.size(); ++i) {
