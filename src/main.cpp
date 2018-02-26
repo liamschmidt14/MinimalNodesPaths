@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
 }
 
 set<string, CompareByLength> constructAllPaths(vector<Vertex *> vertices) {
-    //Using an unordered set to prevent listing duplicate paths.
+    //Using a set to prevent listing duplicate paths.
     set<string, CompareByLength> allPaths;
 
     //Finds the shortest path (based on the BFSes done earlier) from each node in the graph to the source vertex and to the target.
