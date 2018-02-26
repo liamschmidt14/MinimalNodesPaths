@@ -4,7 +4,6 @@
 
 #ifndef MINIMALNODESPATHS_MAIN_H
 #define MINIMALNODESPATHS_MAIN_H
-#include <vector>
 
 using namespace std;
 
@@ -13,9 +12,12 @@ struct Vertex {
     int parents[2] = {-1, -1};
 };
 
+unordered_set<string> constructAllPaths(vector<Vertex *>);
+string getPathFromSource(const vector<Vertex *>& vertices, int vertexToGetPathFor) ;
+string getPathFromTarget(const vector<Vertex *>& vertices, int vertexToGetPathFor) ;
 void bfs(int, int, vector<Vertex *>&, const vector< vector<int> >&);
 void buildAdjacencyList(int, vector<Vertex *>&, vector< vector<int> >&);
-void addNeighborsToQueue(int, queue<int> &, const vector<int> &);
+void addNeighborsToQueue(queue<int> &, const vector<int> &);
 void setParentOfNeighbors(const vector<Vertex *> &, int, int, const vector<int> &);
 void getAndMarkUnvisitedNeighbors(int, const vector<vector<int> > &, vector<Vertex *> &, int, vector<int>&);
 void markStartVisited(vector<Vertex *>&, int, int);
