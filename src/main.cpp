@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
         vector< vector<int> > adjList;
         int numOfVertices;
 
-        cout << "Enter number of vertices: " << endl;
+        cout << "Enter number of vertices (or 0 to exit): " << endl;
         cin >> numOfVertices;
 
         if(numOfVertices == 0)
@@ -41,6 +41,7 @@ int main(int argc, char* argv[]) {
         cout << endl;
     }
 
+    return 0;
 }
 
 set<string, CompareByLength> constructAllPaths(vector<Vertex *> vertices) {
