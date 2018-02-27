@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 
     set<string, CompareByLength> allPaths = constructAllPaths(vertices);
     cout << endl << "All paths from vertex " << startingVertex << " to vertex " << targetVertex << " with a minimal number of nodes per path:" << endl;
-    for(string path : allPaths)
+    for(const string& path : allPaths)
         cout << path << endl;
 
 }
@@ -68,7 +68,7 @@ string getPathFromSource(const vector<Vertex *>& vertices, int vertexToGetPathFo
         parentVertex = current->parents[0];
     }
 
-    string path = "";
+    string path;
 
     //Builds the path from the stack.
     while(!pathBuilder.empty()) {
@@ -94,7 +94,7 @@ string getPathFromTarget(const vector<Vertex *>& vertices, int vertexToGetPathFo
         parentVertex = current->parents[1];
     }
 
-    string path = "";
+    string path;
 
     while(!pathBuilder.empty()) {
         int nextVertex = pathBuilder.front();
