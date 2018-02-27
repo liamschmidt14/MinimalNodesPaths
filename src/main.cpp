@@ -38,6 +38,7 @@ int main(int argc, char* argv[]) {
         cout << endl << "All paths from vertex " << startingVertex << " to vertex " << targetVertex << " with a minimal number of nodes per path:" << endl;
         for(const string& path : allPaths)
             cout << path << endl;
+        cout << endl;
     }
 
 }
