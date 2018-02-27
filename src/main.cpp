@@ -6,34 +6,39 @@
 #include "main.h"
 
 int main(int argc, char* argv[]) {
-    vector<Vertex*> vertices;
-    vector< vector<int> > adjList;
-    int numOfVertices;
+    while (true) {
+        vector<Vertex*> vertices;
+        vector< vector<int> > adjList;
+        int numOfVertices;
 
-    cout << "Enter number of vertices: " << endl;
-    cin >> numOfVertices;
+        cout << "Enter number of vertices: " << endl;
+        cin >> numOfVertices;
 
-    adjList.resize(numOfVertices);
+        if(numOfVertices == 0)
+            break;
 
-    //Build the adjacency list for this graph from the command line
-    buildAdjacencyList(numOfVertices, vertices, adjList);
+        adjList.resize(numOfVertices);
 
-    //Get start/target vertices
-    int startingVertex, targetVertex;
-    cout << "Enter starting vertex: ";
-    cin >> startingVertex;
-    cout << "Enter target vertex: ";
-    cin >> targetVertex;
+        //Build the adjacency list for this graph from the command line
+        buildAdjacencyList(numOfVertices, vertices, adjList);
 
-    //Do 2 simple BFSes, one from the "source" vertex given, and one from the "target."
-    //The resulting shortest paths from source and target to each vertex will be concatenated to produce the shortest path
-    //from source to target containing that vertex.
-    bfs(startingVertex, targetVertex, vertices, adjList);
+        //Get start/target vertices
+        int startingVertex, targetVertex;
+        cout << "Enter starting vertex: ";
+        cin >> startingVertex;
+        cout << "Enter target vertex: ";
+        cin >> targetVertex;
 
-    set<string, CompareByLength> allPaths = constructAllPaths(vertices);
-    cout << endl << "All paths from vertex " << startingVertex << " to vertex " << targetVertex << " with a minimal number of nodes per path:" << endl;
-    for(const string& path : allPaths)
-        cout << path << endl;
+        //Do 2 simple BFSes, one from the "source" vertex given, and one from the "target."
+        //The resulting shortest paths from source and target to each vertex will be concatenated to produce the shortest path
+        //from source to target containing that vertex.
+        bfs(startingVertex, targetVertex, vertices, adjList);
+
+        set<string, CompareByLength> allPaths = constructAllPaths(vertices);
+        cout << endl << "All paths from vertex " << startingVertex << " to vertex " << targetVertex << " with a minimal number of nodes per path:" << endl;
+        for(const string& path : allPaths)
+            cout << path << endl;
+    }
 
 }
 
